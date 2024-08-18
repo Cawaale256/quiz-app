@@ -21,4 +21,11 @@ const question = [
 }
 ] 
 
+const startButton = document.querySelector(".start-btn");
+const questionElement = document.getElementById("question");
+const optionElements = document.getElementById("options");
+const nextButton = document.getElementById("next-btn");
+
+let currentQuestionIndex = 0;
+let score = 0;
 

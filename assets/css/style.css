@@ -45,13 +45,13 @@ body {
 }
 
 .content {
-    min-height: 100vh;
-      overflow: hidden;
+    height: 100vh;
+    overflow: hidden;
 }
 
 .quiz h2{
     font-size: 20px;
-    color: #333;
+    color: #333;pyth
     margin-bottom: 20px;
 }
 
@@ -67,9 +67,10 @@ body {
     border-radius: 5px;
     cursor: pointer;
 }
-.next-btn{
+#next-btn{
     display: block;
     width: 20%;
+    margin: 0 auto;
     padding: 10px 0;
     background: #333;
     color: #fff;
