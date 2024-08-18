@@ -29,3 +29,21 @@ const nextButton = document.getElementById("next-btn");
 let currentQuestionIndex = 0;
 let score = 0;
 
+startButton.addEventListener("click", startGame);
+nextButton.addEventListener("click", () => {
+    currentQuestionIndex++;
+    setNextQuestion();
+});
+
+
+function setNextQuestion {
+
+}
+function startGame(){
+
+}
+
+function showQuestion(){
+
+}
+
