@@ -35,15 +35,25 @@ nextButton.addEventListener("click", () => {
     setNextQuestion();
 });
 
-
-function setNextQuestion {
-
-}
-function startGame(){
-
-}
-
-function showQuestion(){
-
+function startGame() {
+    startButton.classList.add("hide");
+    currentQuestionIndex = 0;
+    score = 0;
+    setNextQuestion();
 }
 
+function setNextQuestion() {
+    resetState();
+    showQuestion(questions[currentQuestionIndex]);
+}
+
+function showQuestion(question) {
+    questionElement.innerText = question.question;
+    question.options.forEach(option => {
+        const button = document.createElement("button");
+        button.innerText = option;
+        button.classList.add("btn");
+        button.addEventListener("click", () => selectOption(option, question.answer));
+        optionElements.appendChild(button);
+    });
+}
