@@ -1,4 +1,4 @@
-const question = [
+const questions = [
 {
     question: "What is the capital of France?",
     options: ["Paris", "London", "Berlin", "Madrid"],
@@ -56,4 +56,12 @@ function showQuestion(question) {
         button.addEventListener("click", () => selectOption(option, question.answer));
         optionElements.appendChild(button);
     });
+} 
+
+
+function resetState() {
+    nextButton.classList.add("hide");
+    while (optionElements.firstChild) {
+        optionElements.removeChild(optionElements.firstChild);
+    }
 }
