@@ -21,6 +21,8 @@ const questions = [
 }
 ] 
 
+// html Dom Methods
+
 const startButton = document.querySelector(".start-btn");
 const questionElement = document.getElementById("question");
 const optionElements = document.getElementById("options");
@@ -29,11 +31,22 @@ const nextButton = document.getElementById("next-btn");
 let currentQuestionIndex = 0;
 let score = 0;
 
+/**
+ * Add Event Listeners to the startButton and nextButton
+ */
+
 startButton.addEventListener("click", startGame);
 nextButton.addEventListener("click", () => {
     currentQuestionIndex++;
     setNextQuestion();
 });
+
+/**
+ * Initializes the quiz by startButton
+ * Hides the startButton by adding hide class
+ * Rests both currentQuestionIndex and score to zero
+ * calls setNextQuestion 
+ */
 
 function startGame() {
     startButton.classList.add("hide");
@@ -42,13 +55,25 @@ function startGame() {
     setNextQuestion();
 }
 
+/**
+ * sets up the next question
+ * calls resetstate function to clear any previous question
+ * calll agian showQuestion functionwith current question to show
+ */
 function setNextQuestion() {
     resetState();
     showQuestion(questions[currentQuestionIndex]);
 }
 
+/**
+ * shows the current question and its options:
+ * sets the text of the questionElement to the current question's text
+ * loops over options array of the current question
+ * for each option, create a new button element,sets its text to the option and adds the btn classto it  
+ */
+
 function showQuestion(question) {
-    questionElement.innerText = question.question;
+    questionElement.innerText = questions.question;
     question.options.forEach(option => {
         const button = document.createElement("button");
         button.innerText = option;
@@ -64,4 +89,8 @@ function resetState() {
     while (optionElements.firstChild) {
         optionElements.removeChild(optionElements.firstChild);
     }
+}
+
+function selectOption(option, question.answer){
+
 }
