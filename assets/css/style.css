@@ -91,3 +91,30 @@ body {
 .next-btn:hover{
     background: green;
 }
+/* Media queries*/
+/* Media queries */
+@media (max-width: 768px) {
+    .container {
+        width: 95%;
+        padding: 15px;
+    }
+
+    .btn {
+        width: 100%;
+        margin: 5px 0;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        width: 100%;
+        padding: 10px;
+    }
+
+    .btn {
+        width: 100%;
+        margin: 5px 0;
+        font-size: 12px;
+    }
+}

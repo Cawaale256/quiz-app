@@ -73,12 +73,12 @@ function setNextQuestion() {
  */
 
 function showQuestion(question) {
-    questionElement.innerText = questions.question;
+    questionElement.innerText = question.question;
     question.options.forEach(option => {
         const button = document.createElement("button");
         button.innerText = option;
         button.classList.add("btn");
-        button.addEventListener("click", selectOption((option, correctAnswer)));
+        button.addEventListener("click", selectOption((option)));
         optionElements.appendChild(button);
     });
 } 
@@ -101,8 +101,8 @@ function resetState() {
  * making nextButton vissible
  */
 
-function  selectOption(Option, answer){
-    if (option === answer ){
+function  selectOption(option){
+    if ( option === questions.answer ){
         score++;
     }
     nextButton.classList.remove("hide");
@@ -114,10 +114,9 @@ function  selectOption(Option, answer){
  * display startButton
  * hide nextButton
  */
-
-// function showResult() {
-//     questionElement.innerText = `Your score is ${score} out of ${questions.length}`;
-//     startButton.innerText = "Restart";
-//     startButton.classList.remove("hide");
-//     nextButton.classList.add("hide");
-// }
+function showResult() {
+    questionElement.innerText = `Your score is ${score} out of ${questions.length}`;
+    startButton.innerText = "Restart";
+    startButton.classList.remove("hide");
+    nextButton.classList.add("hide");
+}
