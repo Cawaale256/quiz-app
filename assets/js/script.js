@@ -78,7 +78,7 @@ function showQuestion(question) {
         const button = document.createElement("button");
         button.innerText = option;
         button.classList.add("btn");
-        button.addEventListener("click", () => selectOption(option, question.answer));
+        button.addEventListener("click", selectOption(option, questions.answer));
         optionElements.appendChild(button);
     });
 } 
@@ -95,4 +95,16 @@ function resetState() {
     }
 }
 
+/**
+ * check if the selected answer is correct
+ * update the quiz score
+ * making nextButton vissible
+ */
 
+function  selectOption(option, question){
+    if (option === question ){
+        score++;
+    }
+    nextButton.classList.remove("hide");
+
+}
