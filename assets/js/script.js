@@ -73,7 +73,7 @@ function setNextQuestion() {
  */
 
 function showQuestion(question) {
-    questionElement.innerText = questions.question;
+    questionElement.innerText = question.question;
     question.options.forEach(option => {
         const button = document.createElement("button");
         button.innerText = option;
@@ -83,6 +83,10 @@ function showQuestion(question) {
     });
 } 
 
+/**
+ * Reset the state of the quiz before showing the nextquestion:
+ * hides the nextButton,removes child elements from the optionElements,
+ */
 
 function resetState() {
     nextButton.classList.add("hide");
@@ -91,6 +95,4 @@ function resetState() {
     }
 }
 
-function selectOption(option, question.answer){
 
-}
