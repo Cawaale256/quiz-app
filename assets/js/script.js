@@ -73,12 +73,12 @@ function setNextQuestion() {
  */
 
 function showQuestion(question) {
-    questionElement.innerText = question.question;
+    questionElement.innerText = questions.question;
     question.options.forEach(option => {
         const button = document.createElement("button");
         button.innerText = option;
         button.classList.add("btn");
-        button.addEventListener("click", selectOption(option, questions.answer));
+        button.addEventListener("click", selectOption((option, correctAnswer)));
         optionElements.appendChild(button);
     });
 } 
@@ -101,10 +101,23 @@ function resetState() {
  * making nextButton vissible
  */
 
-function  selectOption(option, question){
-    if (option === question ){
+function  selectOption(Option, answer){
+    if (option === answer ){
         score++;
     }
     nextButton.classList.remove("hide");
 
 }
+
+/**
+ * display final score at the end of the quiz
+ * display startButton
+ * hide nextButton
+ */
+
+// function showResult() {
+//     questionElement.innerText = `Your score is ${score} out of ${questions.length}`;
+//     startButton.innerText = "Restart";
+//     startButton.classList.remove("hide");
+//     nextButton.classList.add("hide");
+// }
