@@ -71,8 +71,11 @@ function setNextQuestion() {
  * loops over options array of the current question
  * for each option, create a new button element,sets its text to the option and adds the btn classto it  
  */
-
-function showQuestion(question) {
+function showQuestion(question){
+    if (currentQuestionIndex >= questions.length) {
+        showResult();
+        return;
+    }
     questionElement.innerText = question.question;
     question.options.forEach(option => {
         const button = document.createElement("button");
