@@ -1,77 +1,50 @@
-const questions = [
-{
-    question: "What is the capital of France?",
-    options: ["Paris", "London", "Berlin", "Madrid"],
-    answer: "Paris"
-},
-{
-    question : "What is the capital of Spain?",
-    options : ["Paris", "London", "Berlin", "Madrid"],
-    answer : "Madrid"
-},
-{
-    question : "What is the capital of Germany?",
-    options : ["Paris", "London", "Berlin", "Madrid"],
-    answer : "Berlin"
-},
-{
-    question : "What is the capital of England?",
-    options : ["Paris", "London", "Berlin", "Madrid"],
-    answer : "London"
-}
-] 
-
-// html Dom Methods
-
 const startButton = document.querySelector(".start-btn");
 const questionElement = document.getElementById("question");
 const optionElements = document.getElementById("options");
-const nextButton = document.getElementById("next-btn");
+const correctScoreElement = document.getElementById("correct-score");
+const wrongScoreElement = document.getElementById("wrong-score");
 
 let currentQuestionIndex = 0;
 let score = 0;
+let correctScore = 0;
+let wrongScore = 0;
+let questions = [];
 
-/**
- * Add Event Listeners to the startButton and nextButton
- */
-
+// Add Event Listener to the startButton
 startButton.addEventListener("click", startGame);
-nextButton.addEventListener("click", () => {
-    currentQuestionIndex++;
-    setNextQuestion();
-});
 
-/**
- * Initializes the quiz by startButton
- * Hides the startButton by adding hide class
- * Rests both currentQuestionIndex and score to zero
- * calls setNextQuestion 
- */
-
-function startGame() {
-    startButton.classList.add("hide");
+// Initializes the quiz by startButton
+async function startGame() {
+    startButton.classList.add("d-none");
     currentQuestionIndex = 0;
     score = 0;
+    correctScore = 0;
+    wrongScore = 0;
+    updateScore();
+    questions = await fetchGeographyQuestions();
+    questions = questions.slice(0, 10); // Limit to 10 questions
     setNextQuestion();
 }
 
-/**
- * sets up the next question
- * calls resetstate function to clear any previous question
- * calll agian showQuestion functionwith current question to show
- */
+// Fetch geography questions from The Trivia API
+async function fetchGeographyQuestions() {
+    const response = await fetch('https://the-trivia-api.com/v2/questions?categories=geography');
+    const data = await response.json();
+    return data.map(question => ({
+        question: question.question.text, // Access the question text correctly
+        options: question.incorrectAnswers.concat(question.correctAnswer).sort(() => Math.random() - 0.5),
+        answer: question.correctAnswer
+    }));
+}
+
+// Sets up the next question
 function setNextQuestion() {
     resetState();
     showQuestion(questions[currentQuestionIndex]);
 }
 
-/**
- * shows the current question and its options:
- * sets the text of the questionElement to the current question's text
- * loops over options array of the current question
- * for each option, create a new button element,sets its text to the option and adds the btn classto it  
- */
-function showQuestion(question){
+// Shows the current question and its options
+function showQuestion(question) {
     if (currentQuestionIndex >= questions.length) {
         showResult();
         return;
@@ -80,46 +53,52 @@ function showQuestion(question){
     question.options.forEach(option => {
         const button = document.createElement("button");
         button.innerText = option;
-        button.classList.add("btn");
-        button.addEventListener("click", selectOption((option)));
+        button.classList.add("btn", "btn-outline-primary");
+        button.addEventListener("click", () => selectOption(option));
         optionElements.appendChild(button);
     });
-} 
+}
 
-/**
- * Reset the state of the quiz before showing the nextquestion:
- * hides the nextButton,removes child elements from the optionElements,
- */
-
+// Reset the state of the quiz before showing the next question
 function resetState() {
-    nextButton.classList.add("hide");
     while (optionElements.firstChild) {
         optionElements.removeChild(optionElements.firstChild);
     }
 }
 
-/**
- * check if the selected answer is correct
- * update the quiz score
- * making nextButton vissible
- */
-
-function  selectOption(option){
-    if ( option === questions.answer ){
+// Check if the selected answer is correct and update the quiz score
+async function selectOption(option) {
+    const correctAnswer = questions[currentQuestionIndex].answer;
+    if (option === correctAnswer) {
         score++;
+        correctScore++;
+    } else {
+        wrongScore++;
     }
-    nextButton.classList.remove("hide");
-
+    updateScore();
+    currentQuestionIndex++;
+    await delay(1000); // Add a delay of 1 second before moving to the next question
+    if (currentQuestionIndex < questions.length) {
+        setNextQuestion();
+    } else {
+        showResult();
+    }
 }
 
-/**
- * display final score at the end of the quiz
- * display startButton
- * hide nextButton
- */
+// Add a delay function that returns a promise
+function delay(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+// Update the live score
+function updateScore() {
+    correctScoreElement.innerText = correctScore;
+    wrongScoreElement.innerText = wrongScore;
+}
+
+// Display final score at the end of the quiz
 function showResult() {
     questionElement.innerText = `Your score is ${score} out of ${questions.length}`;
     startButton.innerText = "Restart";
-    startButton.classList.remove("hide");
-    nextButton.classList.add("hide");
+    startButton.classList.remove("d-none");
 }

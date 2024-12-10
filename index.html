@@ -4,29 +4,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="assets/css/style.css" type="text/css"> 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <title>GeoQuiz</title>
 </head>
 <body>
-    <div class="container">
-        <h1>GeoQuiz</h1>
-        <div class="quiz">
-            <P>
-                This is an easy,simple interactive quiz and to start click the start button.
-            </P>
-            <button class="start-btn">Start</button>
+    <div class="container mt-5">
+        <h1 class="text-center">GeoQuiz</h1>
+        <div class="quiz mt-4">
+            <p class="text-center">
+                Welcome to GeoQuiz, an engaging and interactive geography quiz that tests your knowledge across various topics. To get started, click the "Start" button. You will be presented with a series of multiple-choice questions. Select your answer by clicking on the corresponding button. Your correct and incorrect answers will be tracked and displayed in real-time. After answering all questions, your final score will be shown. If you wish to play again, simply click the "Restart" button. Enjoy the challenge and have fun learning!.
+            </p>
+            <button class="start-btn btn btn-primary btn-block">Start</button>
             
-            <h2 id="question">Questions :</h2>
-            <div id="options">
-                <button class="btn">Option 1</button>
-                <button class="btn">Option 2</button>
-                <button class="btn">Option 3</button>
-                <button class="btn">Option 4</button>
+            <div class="mt-4">
+                <h2 id="question" class="text-center">Questions :</h2>
+                <div id="options" class="btn-group-vertical btn-group-toggle d-flex flex-column"></div>
             </div>
-            <button id="next-btn">Next</button> 
-        </div>
+            
+            <div class="mt-4">
+                <button id="next-btn" class="btn btn-secondary btn-block" style="display: none;">Next</button>
+            </div>
 
+            <div class="scoreboard mt-4 text-center">
+                <h3>Live Score:</h3>
+                <p>Correct: <span id="correct-score">0</span></p>
+                <p>Wrong: <span id="wrong-score">0</span></p>
+            </div>
+        </div>
     </div>
- 
-    <script src="assets/js/script.js"></script>
+    
+    <script src="assets/js/app.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
