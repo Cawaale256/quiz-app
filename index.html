@@ -3,39 +3,131 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="assets/css/style.css" type="text/css"> 
+    <link rel="stylesheet" href="assets/css/style.css" type="text/css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <title>GeoQuiz</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="icon" href="assets/images/" type="image/x-icon">
+
+    <title>GeoQuiz - Test Your Geography Knowledge</title>
+    <!-- favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <!--Stylesheet-->
 </head>
 <body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">
+            <img src="assets/images/logo for GeoQuiz.png" width="30" height="30" class="d-inline-block align-top" alt="GeoQuiz Logo">
+            GeoQuiz</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#about">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#contact">Contact</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
     <div class="container mt-5">
-        <h1 class="text-center">GeoQuiz</h1>
+        <div class="text-center mb-5">
+            <h1 class="display-4">Welcome to GeoQuiz</h1>
+            <p class="lead">Test your knowledge of geography with our engaging and interactive quiz. Click the "Start" button to begin!</p>
+        </div>
         <div class="quiz mt-4">
-            <p class="text-center">
-                Welcome to GeoQuiz, an engaging and interactive geography quiz that tests your knowledge across various topics. To get started, click the "Start" button. You will be presented with a series of multiple-choice questions. Select your answer by clicking on the corresponding button. Your correct and incorrect answers will be tracked and displayed in real-time. After answering all questions, your final score will be shown. If you wish to play again, simply click the "Restart" button. Enjoy the challenge and have fun learning!.
-            </p>
-            <button class="start-btn btn btn-primary btn-block">Start</button>
+            <div id="quiz-intro">
+                <button class="start-btn">Start Quiz</button>
+            </div>
             
-            <div class="mt-4">
+            <div id="quiz-content" style="display: none;">
                 <h2 id="question" class="text-center">Questions :</h2>
                 <div id="options" class="btn-group-vertical btn-group-toggle d-flex flex-column"></div>
-            </div>
-            
-            <div class="mt-4">
-                <button id="next-btn" class="btn btn-secondary btn-block" style="display: none;">Next</button>
-            </div>
 
-            <div class="scoreboard mt-4 text-center">
-                <h3>Live Score:</h3>
-                <p>Correct: <span id="correct-score">0</span></p>
-                <p>Wrong: <span id="wrong-score">0</span></p>
+                <!-- Progress Bar -->
+                <div class="progress mt-4">
+                    <div id="progress-bar" class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
+                </div>
+
+                <div class="mt-4 text-center">
+                    <button id="next-btn" class="btn btn-secondary" style="display: none;" data-toggle="tooltip" data-placement="bottom" title="Next Question">Next</button>
+                </div>
+                
+                <div class="scoreboard mt-4 text-center">
+                    <h3>Live Score:</h3>
+                    <p>Correct: <span id="correct-score">0</span></p>
+                    <p>Wrong: <span id="wrong-score">0</span></p>
+                </div>
             </div>
         </div>
     </div>
-    
+
+    <!-- About Section -->
+    <div id="about" class="container mt-5">
+        <h2 class="text-center">About GeoQuiz</h2>
+        <p>GeoQuiz is an interactive web-based quiz designed to test your knowledge of geography. It features a clean, responsive design, and dynamically fetches random geography questions from The Trivia API. Whether you are a student, a geography enthusiast, or just looking for a fun way to learn, GeoQuiz is the perfect tool to challenge yourself.</p>
+    </div>
+
+<footer id="contact" class="text-center mt-5 py-4 bg-dark text-light">
+    <p>&copy; 2024 GeoQuiz. All Rights Reserved. | <a href="mailto:info@geoquiz.com">Contact Us</a></p>
+    <div class="social-icons">
+        <a href="https://www.facebook.com" target="_blank" class="text-light mx-2">
+            <i class="fab fa-facebook-f"></i>
+        </a>
+        <a href="https://www.twitter.com" target="_blank" class="text-light mx-2">
+            <i class="fab fa-twitter"></i>
+        </a>
+        <a href="https://www.instagram.com" target="_blank" class="text-light mx-2">
+            <i class="fab fa-instagram"></i>
+        </a>
+    </div>
+</footer>
+
     <script src="assets/js/script.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        // Initialize tooltips
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+
+        // Show and hide quiz sections
+        document.querySelector(".start-btn").addEventListener("click", function() {
+            document.getElementById("quiz-intro").style.display = 'none';
+            document.getElementById("quiz-content").style.display = 'block';
+        });
+
+        // Function to display the score message based on the score 
+        function displayScoreMessage(score) { 
+            let message; 
+            if (score >= 0 && score <= 5) { 
+                message = "You can do better!"; 
+            } else if (score > 5 && score <= 7) 
+            { message = "You're almost there, keep practicing!"; 
+
+            } else if (score > 7 && score <= 10) {
+                 message = "Excellent! Keep reading!"; 
+                } else { message = "Invalid score."; 
+
+                } 
+                document.getElementById('score-message').innerText = message;
+             }
+              // Example usage: Replace this with the actual score calculation 
+              const score = 6; 
+              displayScoreMessage(score);
+    </script>
 </body>
 </html>

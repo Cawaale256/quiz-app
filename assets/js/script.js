@@ -3,6 +3,9 @@ const questionElement = document.getElementById("question");
 const optionElements = document.getElementById("options");
 const correctScoreElement = document.getElementById("correct-score");
 const wrongScoreElement = document.getElementById("wrong-score");
+const progressBar = document.getElementById("progress-bar");
+const quizIntro = document.getElementById("quiz-intro");
+const quizContent = document.getElementById("quiz-content");
 
 let currentQuestionIndex = 0;
 let score = 0;
@@ -15,7 +18,8 @@ startButton.addEventListener("click", startGame);
 
 // Initializes the quiz by startButton
 async function startGame() {
-    startButton.classList.add("d-none");
+    quizIntro.style.display = 'none';
+    quizContent.style.display = 'block';
     currentQuestionIndex = 0;
     score = 0;
     correctScore = 0;
@@ -24,6 +28,7 @@ async function startGame() {
     questions = await fetchGeographyQuestions();
     questions = questions.slice(0, 10); // Limit to 10 questions
     setNextQuestion();
+    updateProgressBar();
 }
 
 // Fetch geography questions from The Trivia API
@@ -41,6 +46,7 @@ async function fetchGeographyQuestions() {
 function setNextQuestion() {
     resetState();
     showQuestion(questions[currentQuestionIndex]);
+    updateProgressBar();
 }
 
 // Shows the current question and its options
@@ -96,9 +102,18 @@ function updateScore() {
     wrongScoreElement.innerText = wrongScore;
 }
 
+// Update the progress bar
+function updateProgressBar() {
+    const progress = (currentQuestionIndex / questions.length) * 100;
+    progressBar.style.width = `${progress}%`;
+    progressBar.setAttribute('aria-valuenow', progress);
+    progressBar.innerText = `${Math.round(progress)}%`;
+}
+
 // Display final score at the end of the quiz
 function showResult() {
     questionElement.innerText = `Your score is ${score} out of ${questions.length}`;
+    quizIntro.style.display = 'block';
     startButton.innerText = "Restart";
     startButton.classList.remove("d-none");
 }
