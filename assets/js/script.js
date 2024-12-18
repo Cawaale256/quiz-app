@@ -6,6 +6,7 @@ const wrongScoreElement = document.getElementById("wrong-score");
 const progressBar = document.getElementById("progress-bar");
 const quizIntro = document.getElementById("quiz-intro");
 const quizContent = document.getElementById("quiz-content");
+const scoreMessageElement = document.getElementById("score-message");
 
 let currentQuestionIndex = 0;
 let score = 0;
@@ -20,6 +21,7 @@ startButton.addEventListener("click", startGame);
 async function startGame() {
     quizIntro.style.display = 'none';
     quizContent.style.display = 'block';
+    scoreMessageElement.style.display = 'none'; // Hide score message during quiz
     currentQuestionIndex = 0;
     score = 0;
     correctScore = 0;
@@ -104,7 +106,7 @@ function updateScore() {
 
 // Update the progress bar
 function updateProgressBar() {
-    const progress = (currentQuestionIndex / questions.length) * 100;
+    const progress = ((currentQuestionIndex + 1) / questions.length) * 100; // Adjusted to ensure it hits 100%
     progressBar.style.width = `${progress}%`;
     progressBar.setAttribute('aria-valuenow', progress);
     progressBar.innerText = `${Math.round(progress)}%`;
@@ -112,8 +114,15 @@ function updateProgressBar() {
 
 // Display final score at the end of the quiz
 function showResult() {
-    questionElement.innerText = `Your score is ${score} out of ${questions.length}`;
-    quizIntro.style.display = 'block';
-    startButton.innerText = "Restart";
-    startButton.classList.remove("d-none");
+    quizContent.style.display = 'none'; // Hide quiz content
+    scoreMessageElement.style.display = 'block'; // Show score message
+    scoreMessageElement.innerText = `You scored ${score} out of ${questions.length}`; // Display score message
+    startButton.style.display = 'block'; // Reappear the start button
+    startButton.innerText = "Restart"; // Update button text to "Restart"
+    startButton.classList.remove("d-none"); // Ensure the button is visible
+    quizIntro.style.display = 'block'; // Show the intro section to hold the restart button
 }
+
+
+
+
